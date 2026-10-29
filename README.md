@@ -1,4 +1,4 @@
-<h1 align="center" style="text-align:center">🧰 nice-skills</h1>
+<h1 align="center" style="text-align:center">🧰 skills</h1>
 
 <p align="center" style="text-align:center"><b>Meu marketplace de plugins para o Claude Code, classificado pelo que eu realmente uso.</b></p>
 
@@ -51,7 +51,7 @@ Significado dos níveis:
 
 Como gravar:
 1. Se o arquivo existir, faça uma cópia de segurança (CLAUDE.md.bak) antes de alterar.
-2. Escreva tudo entre <!-- nice-skills:start --> e <!-- nice-skills:end -->, sob o título "## Fluxo de skills". Se esse trecho já existir, substitua só ele; se não, adicione no fim do arquivo.
+2. Escreva tudo entre <!-- luuspz:start --> e <!-- luuspz:end -->, sob o título "## Fluxo de luuspz". Se esse trecho já existir, substitua só ele; se não, adicione no fim do arquivo.
 3. Use linhas curtas, em português, só com as regras. Não copie a tabela inteira.
 4. Não altere nem remova mais nada, inclusive linhas como @RTK.md.
 5. No final, mostre o bloco que ficou gravado.
