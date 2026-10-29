@@ -96,7 +96,9 @@ Fontes (baixe o conteúdo bruto com curl ou gh; não use busca na web nem resuma
 - ${RAW}/catalog.json: o que instalar, ligar e desligar
 - ${RAW}/claude-rules.md: o bloco de regras, pronto
 
-Antes de mudar qualquer coisa, me mostre o plano (o que vai instalar, ligar, desligar e gravar) e espere meu ok. Faça uma cópia .bak de cada arquivo antes de alterá-lo. Nunca desinstale nada: só ligue ou desligue.
+0. Aviso e consentimento, antes de qualquer outra ação: em poucas linhas e do jeito que achar mais claro para mim, explique o que é este setup (o fluxo de skills de ${REPO}), o que ele vai mexer no meu computador (plugins do Claude Code, o binário do RTK com seu hook, ~/.claude/settings.json, ~/.claude/CLAUDE.md e um verificador diário de atualizações) e que haverá backup e nada será desinstalado. Pergunte se eu entendo e concordo. Se eu não concordar, pare sem mudar nada.
+
+Depois do meu sim, antes de alterar qualquer coisa, me mostre o plano concreto (o que vai instalar, ligar, desligar e gravar) e espere meu ok. Faça uma cópia .bak de cada arquivo antes de alterá-lo. Nunca desinstale nada: só ligue ou desligue.
 
 1. Sistema: detecte se é windows, macos ou linux. Nos campos "install", use a chave do sistema (ou "any").
 2. Marketplace: se "${MKT}" não aparecer em \`claude plugin marketplace list\`, rode \`claude plugin marketplace add ${REPO}\`.
