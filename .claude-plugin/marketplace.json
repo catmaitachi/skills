@@ -8,14 +8,6 @@
   },
   "plugins": [
     {
-      "name": "agent-skills",
-      "source": {
-        "source": "github",
-        "repo": "addyosmani/agent-skills"
-      },
-      "description": "Production-grade engineering skills for AI coding agents."
-    },
-    {
       "name": "ai-job-search",
       "source": {
         "source": "github",
@@ -144,87 +136,6 @@
       "description": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more."
     },
     {
-      "name": "gstack",
-      "source": {
-        "source": "github",
-        "repo": "garrytan/gstack"
-      },
-      "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
-      "strict": false,
-      "skills": [
-        "./",
-        "./autoplan",
-        "./benchmark",
-        "./benchmark-models",
-        "./browse",
-        "./browser-skills/hackernews-frontpage",
-        "./canary",
-        "./captain",
-        "./capy/skill/gstack",
-        "./careful",
-        "./codex",
-        "./context-restore",
-        "./context-save",
-        "./cso",
-        "./design-consultation",
-        "./design-html",
-        "./design-motion",
-        "./design-review",
-        "./design-shotgun",
-        "./deslop-shared-libs",
-        "./devex-review",
-        "./diagram",
-        "./document-generate",
-        "./document-release",
-        "./eval-plan",
-        "./freeze",
-        "./gstack-upgrade",
-        "./guard",
-        "./health",
-        "./investigate",
-        "./ios-clean",
-        "./ios-design-review",
-        "./ios-fix",
-        "./ios-qa",
-        "./ios-sync",
-        "./land-and-deploy",
-        "./landing-report",
-        "./learn",
-        "./make-pdf",
-        "./modernize",
-        "./office-hours",
-        "./open-gstack-browser",
-        "./openclaw/skills/gstack-openclaw-ceo-review",
-        "./openclaw/skills/gstack-openclaw-investigate",
-        "./openclaw/skills/gstack-openclaw-office-hours",
-        "./openclaw/skills/gstack-openclaw-retro",
-        "./pair-agent",
-        "./plan-ceo-review",
-        "./plan-design-review",
-        "./plan-devex-review",
-        "./plan-eng-review",
-        "./plan-tune",
-        "./qa",
-        "./qa-only",
-        "./retro",
-        "./review",
-        "./scrape",
-        "./setup-browser-cookies",
-        "./setup-deploy",
-        "./setup-gbrain",
-        "./ship",
-        "./skillify",
-        "./spec",
-        "./sync-gbrain",
-        "./test-audit",
-        "./test/fixtures/context-bill/tree-a/alpha",
-        "./test/fixtures/context-bill/tree-a/beta",
-        "./ubicloud",
-        "./unfreeze",
-        "./write-skill"
-      ]
-    },
-    {
       "name": "hyperframes",
       "source": {
         "source": "github",
@@ -341,29 +252,6 @@
         "repo": "pbakaus/impeccable"
       },
       "description": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships."
-    },
-    {
-      "name": "rtk",
-      "source": {
-        "source": "github",
-        "repo": "rtk-ai/rtk"
-      },
-      "description": "CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies",
-      "strict": false,
-      "skills": [
-        "./.claude/skills/code-simplifier",
-        "./.claude/skills/design-patterns",
-        "./.claude/skills/issue-triage",
-        "./.claude/skills/performance",
-        "./.claude/skills/pr-review",
-        "./.claude/skills/pr-triage",
-        "./.claude/skills/repo-recap",
-        "./.claude/skills/rtk-tdd",
-        "./.claude/skills/rtk-triage",
-        "./.claude/skills/security-guardian",
-        "./.claude/skills/ship",
-        "./.claude/skills/tdd-rust"
-      ]
     },
     {
       "name": "linkedin-skills",

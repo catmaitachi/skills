@@ -5,7 +5,7 @@ on:
     - cron: '0 */6 * * *'
   workflow_dispatch:
   push:
-    paths: [scripts/sync.mjs]
+    paths: [catalog.json, scripts/**]
 
 permissions:
   contents: write
@@ -20,9 +20,10 @@ jobs:
           # PAT com acesso de leitura ao perfil; só é obrigatório se a lista for privada.
           STARS_TOKEN: ${{ secrets.STARS_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+      - run: node scripts/build.mjs
       - name: Commit se mudou
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add .claude-plugin/marketplace.json
+          git add .claude-plugin/marketplace.json stars.json README.md claude-rules.md
           git diff --cached --quiet || (git commit -m 'chore: sync com a lista de stars' && git push)

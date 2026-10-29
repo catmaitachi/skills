@@ -1,12 +1,14 @@
-// Gera .claude-plugin/marketplace.json a partir de uma lista de Stars do GitHub.
+// Lê a lista de Stars do GitHub e grava:
+//   .claude-plugin/marketplace.json  plugins instaláveis (sem os descartados do catalog.json)
+//   stars.json                       todos os repos da lista, para o README achar os ainda não validados
 // Uso: node scripts/sync.mjs   (token: STARS_TOKEN, GITHUB_TOKEN ou `gh auth token`)
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const OWNER = process.env.LIST_OWNER ?? 'catmaitachi';
 const LIST = process.env.LIST_SLUG ?? 'skills';
-const NAME = 'nice-skills'; // ID do marketplace: os plugins instalados são <plugin>@nice-skills
-const OUT = '.claude-plugin/marketplace.json';
+const catalog = JSON.parse(readFileSync('catalog.json', 'utf8'));
+const byRepo = new Map(catalog.items.map((i) => [i.repo.toLowerCase(), i]));
 
 const token =
   process.env.STARS_TOKEN || process.env.GITHUB_TOKEN || execFileSync('gh', ['auth', 'token']).toString().trim();
@@ -14,7 +16,7 @@ const token =
 const api = async (url, body) => {
   const res = await fetch(`https://api.github.com${url}`, {
     method: body ? 'POST' : 'GET',
-    headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'skills-marketplace-sync' },
+    headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'skills-sync' },
     body: body && JSON.stringify(body),
   });
   if (!res.ok) throw new Error(`${url} -> ${res.status} ${await res.text()}`);
@@ -57,45 +59,46 @@ async function toEntry(r, taken) {
     source: { source: 'github', repo: r.nameWithOwner },
     ...(r.description && { description: r.description }),
   };
-  if (paths.includes('.claude-plugin/plugin.json')) return entry;
+  if (paths.includes('.claude-plugin/plugin.json')) return { kind: 'plugin', entry };
 
   const skills = paths
     .filter((p) => p === 'SKILL.md' || p.endsWith('/SKILL.md'))
     .map((p) => (p === 'SKILL.md' ? './' : `./${p.slice(0, -'/SKILL.md'.length)}`));
-  if (!skills.length) return null;
-  return { ...entry, strict: false, skills: skills.sort() };
+  if (!skills.length) return { kind: 'sem skills', entry: null };
+  return { kind: 'skills soltas', entry: { ...entry, strict: false, skills: skills.sort() } };
 }
 
-const entries = [];
+const plugins = [];
+const stars = [];
 const taken = new Set();
 for (const r of (await listRepos()).sort((a, b) => a.nameWithOwner.localeCompare(b.nameWithOwner))) {
-  const e = await toEntry(r, taken).catch((err) => (console.warn(`! ${r.nameWithOwner}: ${err.message}`), null));
-  if (!e) {
-    console.warn(`- ${r.nameWithOwner}: sem plugin.json nem SKILL.md, ignorado`);
-    continue;
-  }
-  taken.add(e.name);
-  entries.push(e);
+  const { kind, entry } = await toEntry(r, taken).catch((err) => {
+    console.warn(`! ${r.nameWithOwner}: ${err.message}`);
+    return { kind: 'erro', entry: null };
+  });
+  stars.push({ repo: r.nameWithOwner, description: r.description ?? '', kind });
+  const item = byRepo.get(r.nameWithOwner.toLowerCase());
+  // Descartados e o que não é plugin (ex.: rtk, que vale como binário) ficam fora do marketplace.
+  if (!entry || item?.level === 'descartado' || (item && item.type !== 'plugin')) continue;
+  taken.add(entry.name);
+  plugins.push(entry);
 }
 
-const json =
-  JSON.stringify(
-    {
-      name: NAME,
-      owner: { name: OWNER },
-      metadata: { description: `Plugins/skills da lista github.com/stars/${OWNER}/lists/${LIST} (gerado automaticamente)` },
-      plugins: entries,
-    },
-    null,
-    2,
-  ) + '\n';
+const write = (file, data) => {
+  const json = JSON.stringify(data, null, 2) + '\n';
+  let current = '';
+  try { current = readFileSync(file, 'utf8'); } catch {}
+  if (json === current) return console.log(`${file}: sem mudanças`);
+  writeFileSync(file, json);
+  console.log(`${file}: atualizado`);
+};
 
-let current = '';
-try { current = readFileSync(OUT, 'utf8'); } catch {}
-if (json === current) {
-  console.log(`Sem mudanças (${entries.length} plugins).`);
-} else {
-  mkdirSync('.claude-plugin', { recursive: true });
-  writeFileSync(OUT, json);
-  console.log(`${OUT} atualizado (${entries.length} plugins).`);
-}
+mkdirSync('.claude-plugin', { recursive: true });
+write('.claude-plugin/marketplace.json', {
+  name: catalog.marketplace,
+  owner: { name: OWNER },
+  metadata: { description: `Plugins/skills da lista github.com/stars/${OWNER}/lists/${LIST} (gerado automaticamente)` },
+  plugins,
+});
+write('stars.json', stars);
+console.log(`${stars.length} repos na lista, ${plugins.length} no marketplace.`);

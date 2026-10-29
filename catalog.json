@@ -1,0 +1,135 @@
+{
+  "marketplace": "nice-skills",
+  "owner": "luuspz",
+  "items": [
+    {
+      "name": "superpowers", "repo": "obra/superpowers", "level": "core", "type": "plugin", "layer": "🧠 Método",
+      "purpose": "Brainstorm → plano → TDD → verificação",
+      "rule": "Único mestre. Tarefa pequena (até ~2 arquivos e sem decisão de design) pula o fluxo completo"
+    },
+    {
+      "name": "rtk", "repo": "rtk-ai/rtk", "level": "core", "type": "hook", "layer": "💸 Tokens",
+      "purpose": "Condensa a saída dos comandos Bash antes de o modelo ler",
+      "rule": "Usar o binário com hook, nunca o plugin `rtk`",
+      "install": {
+        "windows": "winget install rtk-ai.rtk",
+        "macos": "brew install rtk",
+        "linux": "curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh"
+      },
+      "setup": "rtk init -g",
+      "verify": "rtk gain"
+    },
+    {
+      "name": "ponytail", "repo": "DietrichGebert/ponytail", "level": "core", "type": "plugin", "layer": "🧹 Código",
+      "purpose": "Menor solução que resolve; revisão anti-excesso",
+      "rule": "Não verifica correção: isso é do superpowers"
+    },
+    {
+      "name": "impeccable", "repo": "pbakaus/impeccable", "level": "core", "type": "plugin", "layer": "🎨 Revisar design",
+      "purpose": "`audit`, `critique` e `polish` de interface",
+      "rule": "Em UI existente, ou depois de criar com hallmark"
+    },
+    {
+      "name": "hallmark", "repo": "Nutlope/hallmark", "level": "core", "type": "plugin", "layer": "✨ Criar design",
+      "purpose": "Páginas novas que não parecem geradas",
+      "rule": "Só design novo, nunca em design existente"
+    },
+    {
+      "name": "ui-ux-pro-max-skill", "repo": "nextlevelbuilder/ui-ux-pro-max-skill", "level": "core", "type": "plugin", "layer": "✨ Criar design",
+      "purpose": "Repertório de estilos, paletas e fontes",
+      "rule": "Junto com o hallmark ao criar"
+    },
+    {
+      "name": "humanizer", "repo": "blader/humanizer", "level": "core", "type": "plugin", "layer": "✍️ Escrita",
+      "purpose": "Tira o jeito de texto de IA",
+      "rule": "Só texto para o usuário final. Para dev (comentário, resposta, commit): direto e conciso, sem skill"
+    },
+    {
+      "name": "skills", "repo": "mattpocock/skills", "level": "complemento", "type": "plugin", "layer": "🧠 Método",
+      "purpose": "Skills de engenharia do Matt Pocock",
+      "rule": "Só `grilling`, `to-spec` e `domain-modeling`; TDD e review ficam com o superpowers"
+    },
+    {
+      "name": "headroom", "repo": "headroomlabs-ai/headroom", "level": "sob-demanda", "type": "ferramenta", "layer": "💸 Tokens",
+      "purpose": "Comprime saídas, logs e arquivos (proxy/MCP)",
+      "rule": "Alternativa ao RTK: nunca os dois",
+      "install": { "any": "pip install \"headroom-ai[all]\"" },
+      "setup": "headroom wrap claude"
+    },
+    {
+      "name": "security-audit-skill", "repo": "cloudflare/security-audit-skill", "level": "sob-demanda", "type": "plugin", "layer": "🧹 Código",
+      "purpose": "Auditoria de segurança em várias fases",
+      "rule": "Antes de release ou em código sensível"
+    },
+    {
+      "name": "codex-plugin-cc", "repo": "openai/codex-plugin-cc", "level": "sob-demanda", "type": "plugin", "layer": "🧹 Código",
+      "purpose": "Segunda opinião e delegação via Codex",
+      "requires": "npm install -g @openai/codex e depois codex login"
+    },
+    {
+      "name": "Understand-Anything", "repo": "Egonex-AI/Understand-Anything", "level": "sob-demanda", "type": "plugin", "layer": "🔭 Entender",
+      "purpose": "Grafo e painel interativo do repositório",
+      "rule": "Só em repo grande ou desconhecido: a 1ª análise gasta muitos tokens"
+    },
+    {
+      "name": "diagram-design", "repo": "cathrynlavery/diagram-design", "level": "sob-demanda", "type": "plugin", "layer": "🔭 Explicar",
+      "purpose": "Diagramas editoriais em HTML/SVG"
+    },
+    {
+      "name": "taste-skill", "repo": "Leonxlnx/taste-skill", "level": "sob-demanda", "type": "plugin", "layer": "✨ Criar design",
+      "purpose": "Direção de arte com checagem no navegador",
+      "rule": "Alternativa ao hallmark: um de cada vez"
+    },
+    {
+      "name": "logo-generator-skill", "repo": "op7418/logo-generator-skill", "level": "sob-demanda", "type": "plugin", "layer": "✨ Criar design",
+      "purpose": "Geração de logos"
+    },
+    {
+      "name": "last30days-skill", "repo": "mvanhorn/last30days-skill", "level": "sob-demanda", "type": "plugin", "layer": "🔎 Pesquisa",
+      "purpose": "O que se disse nos últimos 30 dias (Reddit, X, YouTube, HN)"
+    },
+    {
+      "name": "founder-skill", "repo": "Jakeschincariol/founder-skill", "level": "sob-demanda", "type": "plugin", "layer": "💼 Negócio",
+      "purpose": "11 skills para validar uma ideia de negócio"
+    },
+    {
+      "name": "vercel-labs-skills", "repo": "vercel-labs/skills", "level": "sob-demanda", "type": "plugin", "layer": "🧰 Ferramentas",
+      "purpose": "Descobrir skills novas",
+      "rule": "Só o `find-skills`; `triage` e `pr-labeling` são do repo deles"
+    },
+    {
+      "name": "caveman", "repo": "JuliusBrussee/caveman", "level": "catalogo", "type": "plugin", "layer": "💸 Tokens",
+      "purpose": "Respostas mais curtas",
+      "rule": "Ganha ~3% sobre pedir \"seja conciso\" e repete o RTK"
+    },
+    {
+      "name": "OmniRoute", "repo": "cheaper-inference/OmniRoute", "level": "catalogo", "type": "plugin", "layer": "🧰 Infra",
+      "purpose": "Gateway de modelos (375 provedores)",
+      "rule": "Infraestrutura, não skill; 50+ skills que só pesam"
+    },
+    {
+      "name": "graphify", "repo": "Graphify-Labs/graphify", "level": "catalogo", "type": "ferramenta", "layer": "🔭 Entender",
+      "purpose": "Grafo de código por análise local, sem LLM"
+    },
+    {
+      "name": "hyperframes", "repo": "heygen-com/hyperframes", "level": "catalogo", "type": "plugin", "layer": "🎬 Vídeo",
+      "purpose": "HTML → vídeo"
+    },
+    {
+      "name": "rea", "repo": "morluto/rea", "level": "catalogo", "type": "plugin", "layer": "🔓 Eng. reversa",
+      "purpose": "Engenharia reversa com agentes"
+    },
+    {
+      "name": "agent-skills", "repo": "addyosmani/agent-skills", "level": "descartado", "type": "plugin", "layer": "🧠 Método",
+      "purpose": "Ciclo completo de engenharia",
+      "rule": "Concorre com o superpowers"
+    },
+    {
+      "name": "gstack", "repo": "garrytan/gstack", "level": "descartado", "type": "plugin", "layer": "🧠 Método",
+      "purpose": "Setup completo do Garry Tan",
+      "rule": "Framework inteiro que concorre com o mestre"
+    },
+    { "name": "ai-job-search", "repo": "ai-job-search-dev/ai-job-search", "level": "fora", "type": "plugin" },
+    { "name": "linkedin-skills", "repo": "sergebulaev/linkedin-skills", "level": "fora", "type": "plugin" }
+  ]
+}
