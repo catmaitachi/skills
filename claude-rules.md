@@ -15,7 +15,7 @@ Gerado de https://github.com/catmaitachi/skills (catalog.json). Não edite aqui:
 **Complemento (só o que a regra diz)**
 - `skills`: Skills de engenharia do Matt Pocock. Só `grilling`, `to-spec` e `domain-modeling`; TDD e review ficam com o superpowers
 
-**Sob demanda**: ficam desligados. Quando a tarefa pedir um deles, sugira ligar só naquele projeto, em `.claude/settings.json` → `enabledPlugins` (ex.: `"security-audit-skill@nice-skills": true`), nunca globalmente.
+**Sob demanda**: ficam desligados. Quando a tarefa pedir um deles, sugira ligar só naquele projeto, em `.claude/settings.json` → `enabledPlugins` (ex.: `"security-audit-skill@luuspz-flow": true`), nunca globalmente.
 - `headroom` (ferramenta externa): Comprime saídas, logs e arquivos (proxy/MCP). Alternativa ao RTK: nunca os dois
 - `security-audit-skill`: Auditoria de segurança em várias fases. Antes de release ou em código sensível
 - `codex-plugin-cc`: Segunda opinião e delegação via Codex

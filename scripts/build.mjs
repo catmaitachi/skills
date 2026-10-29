@@ -98,28 +98,34 @@ Fontes (baixe o conteúdo bruto com curl ou gh; não use busca na web nem resuma
 
 0. Aviso e consentimento, antes de qualquer outra ação: em poucas linhas e do jeito que achar mais claro para mim, explique o que é este setup (o fluxo de skills de ${REPO}), o que ele vai mexer no meu computador (plugins do Claude Code, o binário do RTK com seu hook, ~/.claude/settings.json, ~/.claude/CLAUDE.md e um verificador diário de atualizações) e que haverá backup e nada será desinstalado. Pergunte se eu entendo e concordo. Se eu não concordar, pare sem mudar nada.
 
-Depois do meu sim, antes de alterar qualquer coisa, me mostre o plano concreto (o que vai instalar, ligar, desligar e gravar) e espere meu ok. Faça uma cópia .bak de cada arquivo antes de alterá-lo. Nunca desinstale nada: só ligue ou desligue.
+Depois do meu sim, faça um levantamento só de leitura (o que já está instalado, ligado ou faltando). Se houver itens fora do fluxo (passo 4), faça a pergunta desse passo nesse momento. Só então, antes de alterar qualquer coisa, me mostre o plano concreto (o que vai instalar, ligar, desligar e gravar) e espere meu ok. Faça uma cópia .bak de cada arquivo antes de alterá-lo. Nunca desinstale nada: só ligue ou desligue. Depois de cada comando do CLI, confira se o estado ficou como esperado; se não, pare e me avise.
 
 1. Sistema: detecte se é windows, macos ou linux. Nos campos "install", use a chave do sistema (ou "any").
-2. Marketplace: se "${MKT}" não aparecer em \`claude plugin marketplace list\`, rode \`claude plugin marketplace add ${REPO}\`.
-3. Plugins (type "plugin"), sempre pelo id <name>@${MKT}:
+2. Marketplace: se "${MKT}" não aparecer em \`claude plugin marketplace list\`, rode \`claude plugin marketplace add ${REPO}\`. Se houver um marketplace antigo deste mesmo repo com outro nome (ex.: "nice-skills"), me avise e proponha migrar: instalar os mesmos plugins pelo id novo e só depois remover o antigo, com o meu ok.
+3. Plugins do fluxo (type "plugin"), sempre pelo id <name>@${MKT}:
    - core e complemento: instale se faltar (\`claude plugin install\`) e deixe ligados.
    - sob-demanda, catalogo e fora: não instale; se já estiverem instalados, desligue (\`claude plugin disable\`).
    - descartado: se estiver instalado, desligue e me avise.
    - Campo "requires": só instale a dependência se o plugin for ficar ligado.
-4. Ferramentas e hooks (type "hook" ou "ferramenta"):
+4. Fora do fluxo: liste os plugins instalados que não estão no catalog.json (de qualquer marketplace) e as skills avulsas em ~/.claude/skills. Se houver algum, faça UMA pergunta com três opções:
+   a) desativar todos: plugins com \`claude plugin disable\`; skills avulsas movidas para ~/.claude/skills-off/ (reversível, nada é apagado);
+   b) manter como estão;
+   c) decidir por mim, um a um: proponha para cada item um nível do fluxo (core, complemento, sob-demanda ou desligar) com o motivo em uma linha, numa tabela, e só aplique depois que eu aprovar ou ajustar. No relatório, liste essas decisões como sugestões para o catalog.json.
+   O que não dá para desativar localmente (ex.: skills vindas da conta ou do app desktop), só liste.
+5. Ferramentas e hooks (type "hook" ou "ferramenta"):
    - core: rode "verify"; se falhar, instale com o comando do sistema e depois rode "setup".
    - rtk: se o \`rtk init -g\` não gravar o hook em ~/.claude/settings.json (acontece sem terminal interativo), adicione em hooks.PreToolUse: {"matcher": "Bash", "hooks": [{"type": "command", "command": "rtk hook claude"}]}. Nunca ligue o plugin "rtk".
    - sob-demanda: não instale; só liste no relatório.
-5. Regras: em ~/.claude/CLAUDE.md, troque o trecho entre <!-- ${OWNER}:start --> e <!-- ${OWNER}:end --> pelo conteúdo de claude-rules.md, sem mudar uma vírgula. Se o trecho não existir, adicione no fim. Não toque no resto do arquivo (ex.: @RTK.md).
-6. Atualizações: baixe ${RAW}/scripts/check-updates.mjs para ~/.claude/${OWNER}/check-updates.mjs (sobrescreva se existir). Em ~/.claude/settings.json, registre em hooks.SessionStart: {"hooks": [{"type": "command", "command": "node \\"<caminho absoluto do script>\\""}]}, sem duplicar se já houver um com esse script. Ele só lê e avisa; quem atualiza é você, com o meu ok.
-7. Verificação:
+6. Regras: em ~/.claude/CLAUDE.md, troque o trecho entre <!-- ${OWNER}:start --> e <!-- ${OWNER}:end --> pelo conteúdo de claude-rules.md, sem mudar uma vírgula. Se o trecho não existir, adicione no fim. Não toque no resto do arquivo (ex.: @RTK.md).
+7. Atualizações: baixe ${RAW}/scripts/check-updates.mjs para ~/.claude/${OWNER}/check-updates.mjs (sobrescreva se existir). Em ~/.claude/settings.json, registre em hooks.SessionStart: {"hooks": [{"type": "command", "command": "node \\"<caminho absoluto do script>\\""}]}, sem duplicar se já houver um com esse script. Ele só lê e avisa; quem atualiza é você, com o meu ok.
+8. Verificação:
    - \`node <caminho do script> --force\` roda sem erro (listar atualizações é normal);
    - \`rtk --version\` e \`rtk gain\` respondem (e não "command not found");
    - o hook reescreve: envie {"tool_name":"Bash","tool_input":{"command":"git status"}} para \`rtk hook claude\` e confira "rtk git status" na saída;
    - \`claude plugin list\` mostra ligados exatamente os plugins core e complemento;
-   - o bloco de regras está no CLAUDE.md.
-8. Relatório: o que mudou, o que falhou e o que exige reiniciar o Claude Code.`;
+   - o bloco de regras está no CLAUDE.md;
+   - os itens fora do fluxo ficaram como escolhi no passo 4.
+9. Relatório: o que mudou, o que falhou e o que exige reiniciar o Claude Code.`;
 
 const readme = `<!-- Gerado por scripts/build.mjs a partir de catalog.json e stars.json. Não edite à mão: mude o catalog.json. -->
 

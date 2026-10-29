@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const REPO = 'catmaitachi/skills';
 const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
-const MKT = 'nice-skills';
+const MKT = 'luuspz-flow';
 const OWNER = 'luuspz';
 const DAY = 24 * 60 * 60 * 1000;
 
