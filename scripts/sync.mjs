@@ -4,7 +4,8 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const OWNER = process.env.LIST_OWNER ?? 'catmaitachi';
-const LIST = process.env.LIST_SLUG ?? 'nice-skills';
+const LIST = process.env.LIST_SLUG ?? 'skills';
+const NAME = 'nice-skills'; // ID do marketplace: os plugins instalados são <plugin>@nice-skills
 const OUT = '.claude-plugin/marketplace.json';
 
 const token =
@@ -80,7 +81,7 @@ for (const r of (await listRepos()).sort((a, b) => a.nameWithOwner.localeCompare
 const json =
   JSON.stringify(
     {
-      name: LIST,
+      name: NAME,
       owner: { name: OWNER },
       metadata: { description: `Plugins/skills da lista github.com/stars/${OWNER}/lists/${LIST} (gerado automaticamente)` },
       plugins: entries,

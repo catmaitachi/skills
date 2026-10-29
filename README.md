@@ -2,15 +2,15 @@
 
 <p align="center" style="text-align:center"><b>Meu marketplace de plugins para o Claude Code, classificado pelo que eu realmente uso.</b></p>
 
-<p align="center" style="text-align:center"><code>/plugin marketplace add catmaitachi/skills-marketplace</code></p>
+<p align="center" style="text-align:center"><code>/plugin marketplace add catmaitachi/skills</code></p>
 
 <table align="center" style="text-align:center">
 <thead><tr><th align="center" style="text-align:center">Nível</th><th align="center" style="text-align:center">Plugin</th><th align="center" style="text-align:center">Camada</th><th align="center" style="text-align:center">Nota</th></tr></thead>
 <tbody>
-<tr><td align="center" style="text-align:center" rowspan="7" valign="middle"><img alt="core" src="https://img.shields.io/badge/CORE-2ea44f?style=for-the-badge"></td><td align="center" style="text-align:center"><a href="https://github.com/obra/superpowers"><b>superpowers</b></a></td><td align="center" style="text-align:center">🧠 Método</td><td align="center" style="text-align:center">Único mestre: brainstorm → plano → TDD → verificação</td></tr>
+<tr><td align="center" style="text-align:center" rowspan="7" valign="middle"><img alt="core" src="https://img.shields.io/badge/CORE-2ea44f?style=for-the-badge"></td><td align="center" style="text-align:center"><a href="https://github.com/obra/superpowers"><b>superpowers</b></a></td><td align="center" style="text-align:center">🧠 Método</td><td align="center" style="text-align:center">Único mestre: brainstorm → plano → TDD → verificação. Tarefa pequena pula o fluxo</td></tr>
 <tr><td align="center" style="text-align:center"><a href="https://github.com/rtk-ai/rtk"><b>rtk</b></a></td><td align="center" style="text-align:center">💸 Tokens</td><td align="center" style="text-align:center">Vale o hook, não o plugin: <code>winget install rtk-ai.rtk</code> + <code>rtk init -g</code></td></tr>
 <tr><td align="center" style="text-align:center"><a href="https://github.com/DietrichGebert/ponytail"><b>ponytail</b></a></td><td align="center" style="text-align:center">🧹 Código</td><td align="center" style="text-align:center">Menor solução que resolve. Não verifica se está certo</td></tr>
-<tr><td align="center" style="text-align:center"><a href="https://github.com/pbakaus/impeccable"><b>impeccable</b></a></td><td align="center" style="text-align:center">🎨 Revisar design</td><td align="center" style="text-align:center"><code>audit</code>, <code>critique</code> e <code>polish</code> em UI existente</td></tr>
+<tr><td align="center" style="text-align:center"><a href="https://github.com/pbakaus/impeccable"><b>impeccable</b></a></td><td align="center" style="text-align:center">🎨 Revisar design</td><td align="center" style="text-align:center"><code>audit</code>, <code>critique</code> e <code>polish</code>: em UI existente ou depois de criar</td></tr>
 <tr><td align="center" style="text-align:center"><a href="https://github.com/Nutlope/hallmark"><b>hallmark</b></a></td><td align="center" style="text-align:center">✨ Criar design</td><td align="center" style="text-align:center">Só design novo; ele mesmo diz para não usar em existente</td></tr>
 <tr><td align="center" style="text-align:center"><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"><b>ui-ux-pro-max-skill</b></a></td><td align="center" style="text-align:center">✨ Criar design</td><td align="center" style="text-align:center">Repertório de estilos, paletas e fontes</td></tr>
 <tr><td align="center" style="text-align:center"><a href="https://github.com/blader/humanizer"><b>humanizer</b></a></td><td align="center" style="text-align:center">✍️ Escrita</td><td align="center" style="text-align:center">Só texto para o usuário final. Para dev: direto e conciso</td></tr>
@@ -35,4 +35,26 @@
 </tbody>
 </table>
 
-<p align="center" style="text-align:center"><sub>🟡 liga só no projeto que precisa (<code>.claude/settings.json</code> → <code>enabledPlugins</code>) · sincronizado a cada 6h pela <a href="https://github.com/stars/catmaitachi/lists/nice-skills">lista de estrelas</a> via <a href="scripts/sync.mjs"><code>sync.mjs</code></a> · esta tabela é a parte manual</sub></p>
+<h2 align="center" style="text-align:center">📋 Aplicar este fluxo no meu computador</h2>
+
+<p align="center" style="text-align:center">A tabela acima é a fonte. Copie o prompt e cole no Claude Code: ele lê esta tabela e grava as regras em <code>~/.claude/CLAUDE.md</code>, sem apagar o que já existe. Mudou uma linha? Rode de novo para atualizar.</p>
+
+```text
+Leia a tabela de https://raw.githubusercontent.com/catmaitachi/skills/main/README.md (colunas Nível, Plugin, Camada, Nota) e transforme-a em regras no meu arquivo global ~/.claude/CLAUDE.md (no Windows: C:\Users\<meu usuário>\.claude\CLAUDE.md).
+
+Significado dos níveis:
+- CORE: use sempre que a camada se aplicar.
+- COMPLEMENTO: use só para o que a Nota diz.
+- SOB DEMANDA: fica desligado. Quando a tarefa pedir, sugira ligar só naquele projeto, em .claude/settings.json (enabledPlugins), nunca globalmente.
+- CATÁLOGO e DESCARTADO: nunca use nem sugira instalar.
+- A Nota é uma restrição de uso: siga ao pé da letra.
+
+Como gravar:
+1. Se o arquivo existir, faça uma cópia de segurança (CLAUDE.md.bak) antes de alterar.
+2. Escreva tudo entre <!-- nice-skills:start --> e <!-- nice-skills:end -->, sob o título "## Fluxo de skills". Se esse trecho já existir, substitua só ele; se não, adicione no fim do arquivo.
+3. Use linhas curtas, em português, só com as regras. Não copie a tabela inteira.
+4. Não altere nem remova mais nada, inclusive linhas como @RTK.md.
+5. No final, mostre o bloco que ficou gravado.
+```
+
+<p align="center" style="text-align:center"><sub>🟡 liga só no projeto que precisa (<code>.claude/settings.json</code> → <code>enabledPlugins</code>) · sincronizado a cada 6h pela <a href="https://github.com/stars/catmaitachi/lists/skills">lista de estrelas</a> via <a href="scripts/sync.mjs"><code>sync.mjs</code></a> · esta tabela é a parte manual</sub></p>
