@@ -10,7 +10,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO = 'catmaitachi/skills';
-const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
+// API de conteúdo, não raw.githubusercontent.com: o raw fica até 5 min em cache depois de um push.
+const API = `https://api.github.com/repos/${REPO}/contents`;
 const MKT = 'luuspz-flow';
 const OWNER = 'luuspz';
 const DAY = 24 * 60 * 60 * 1000;
@@ -27,7 +28,10 @@ if (!process.argv.includes('--force') && Date.now() - (state.lastCheck ?? 0) < D
 const remoteHead = async (repo) =>
   (await run('git', ['ls-remote', `https://github.com/${repo}`, 'HEAD'], { timeout: 15000 })).stdout.split(/\s/)[0];
 const raw = async (path) => {
-  const res = await fetch(`${RAW}/${path}`, { signal: AbortSignal.timeout(15000) });
+  const res = await fetch(`${API}/${path}?ref=main`, {
+    headers: { Accept: 'application/vnd.github.raw', 'User-Agent': `${OWNER}-check-updates` },
+    signal: AbortSignal.timeout(15000),
+  });
   if (!res.ok) throw new Error(`${path}: ${res.status}`);
   return (await res.text()).replace(/\r\n/g, '\n');
 };

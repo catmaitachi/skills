@@ -3,7 +3,9 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const REPO = 'catmaitachi/skills';
-const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
+// API de conteúdo, não raw.githubusercontent.com: o raw fica até 5 min em cache depois de um push.
+const API = `https://api.github.com/repos/${REPO}/contents`;
+const GET = `curl -fsSL -H "Accept: application/vnd.github.raw" ${API}/<arquivo>`;
 const LIST_URL = 'https://github.com/stars/catmaitachi/lists/skills';
 const catalog = JSON.parse(readFileSync('catalog.json', 'utf8'));
 const stars = JSON.parse(readFileSync('stars.json', 'utf8'));
@@ -92,9 +94,9 @@ ${pick('sob-demanda').map(line).join('\n')}
 // --- Prompt de setup ---
 const prompt = `Configure meu Claude Code com o fluxo de https://github.com/${REPO}.
 
-Fontes (baixe o conteúdo bruto com curl ou gh; não use busca na web nem resuma):
-- ${RAW}/catalog.json: o que instalar, ligar e desligar
-- ${RAW}/claude-rules.md: o bloco de regras, pronto
+Fontes: baixe cada arquivo pela API do GitHub, que não tem o cache de 5 minutos dos links raw (\`${GET}\`, ou \`gh api repos/${REPO}/contents/<arquivo> -H "Accept: application/vnd.github.raw"\`). Não use busca na web nem resuma.
+- catalog.json: o que instalar, ligar e desligar
+- claude-rules.md: o bloco de regras, pronto
 
 0. Aviso e consentimento, antes de qualquer outra ação: em poucas linhas e do jeito que achar mais claro para mim, explique o que é este setup (o fluxo de skills de ${REPO}), o que ele vai mexer no meu computador (plugins do Claude Code, o binário do RTK com seu hook, ~/.claude/settings.json, ~/.claude/CLAUDE.md e um verificador diário de atualizações) e que haverá backup e nada será desinstalado. Pergunte se eu entendo e concordo. Se eu não concordar, pare sem mudar nada.
 
@@ -119,7 +121,7 @@ Depois do meu sim, faça um levantamento só de leitura (o que já está instala
    - rtk: se o \`rtk init -g\` não gravar o hook em ~/.claude/settings.json (acontece sem terminal interativo), adicione em hooks.PreToolUse: {"matcher": "Bash", "hooks": [{"type": "command", "command": "rtk hook claude"}]}. Nunca ligue o plugin "rtk".
    - sob-demanda: não instale; só liste no relatório.
 6. Regras: em ~/.claude/CLAUDE.md, troque o trecho entre <!-- ${OWNER}:start --> e <!-- ${OWNER}:end --> pelo conteúdo de claude-rules.md, sem mudar uma vírgula. Se o trecho não existir, adicione no fim. Não toque no resto do arquivo (ex.: @RTK.md).
-7. Atualizações: baixe ${RAW}/scripts/check-updates.mjs para ~/.claude/${OWNER}/check-updates.mjs (sobrescreva se existir). Em ~/.claude/settings.json, registre em hooks.SessionStart: {"hooks": [{"type": "command", "command": "node \\"<caminho absoluto do script>\\""}]}, sem duplicar se já houver um com esse script. Ele só lê e avisa; quem atualiza é você, com o meu ok.
+7. Atualizações: baixe scripts/check-updates.mjs (pela API, como as fontes) para ~/.claude/${OWNER}/check-updates.mjs (sobrescreva se existir). Em ~/.claude/settings.json, registre em hooks.SessionStart: {"hooks": [{"type": "command", "command": "node \\"<caminho absoluto do script>\\""}]}, sem duplicar se já houver um com esse script. Ele só lê e avisa; quem atualiza é você, com o meu ok.
 8. Verificação:
    - \`node <caminho do script> --force\` roda sem erro (listar atualizações é normal);
    - \`rtk --version\` e \`rtk gain\` respondem (e não "command not found");
