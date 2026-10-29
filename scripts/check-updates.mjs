@@ -10,8 +10,6 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO = 'catmaitachi/skills';
-// API de conteúdo, não raw.githubusercontent.com: o raw fica até 5 min em cache depois de um push.
-const API = `https://api.github.com/repos/${REPO}/contents`;
 const MKT = 'luuspz-flow';
 const OWNER = 'luuspz';
 const DAY = 24 * 60 * 60 * 1000;
@@ -27,9 +25,12 @@ if (!process.argv.includes('--force') && Date.now() - (state.lastCheck ?? 0) < D
 
 const remoteHead = async (repo) =>
   (await run('git', ['ls-remote', `https://github.com/${repo}`, 'HEAD'], { timeout: 15000 })).stdout.split(/\s/)[0];
+// Baixa pelo commit atual (git ls-remote não tem cache), nunca por `main`: a URL por branch
+// fica minutos em cache depois de um push, a por commit é imutável.
+let commit;
 const raw = async (path) => {
-  const res = await fetch(`${API}/${path}?ref=main`, {
-    headers: { Accept: 'application/vnd.github.raw', 'User-Agent': `${OWNER}-check-updates` },
+  commit ??= remoteHead(REPO);
+  const res = await fetch(`https://raw.githubusercontent.com/${REPO}/${await commit}/${path}`, {
     signal: AbortSignal.timeout(15000),
   });
   if (!res.ok) throw new Error(`${path}: ${res.status}`);
