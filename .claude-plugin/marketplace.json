@@ -1,0 +1,391 @@
+{
+  "name": "nice-skills",
+  "owner": {
+    "name": "catmaitachi"
+  },
+  "metadata": {
+    "description": "Plugins/skills da lista github.com/stars/catmaitachi/lists/nice-skills (gerado automaticamente)"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "source": {
+        "source": "github",
+        "repo": "addyosmani/agent-skills"
+      },
+      "description": "Production-grade engineering skills for AI coding agents."
+    },
+    {
+      "name": "ai-job-search",
+      "source": {
+        "source": "github",
+        "repo": "ai-job-search-dev/ai-job-search"
+      },
+      "description": "The job search that runs on your machine. AI job application framework built on Claude Code: evaluate postings, tailor CVs, write cover letters, prep interviews. Fork it and own it.",
+      "strict": false,
+      "skills": [
+        "./.agents/skills/freehire-search",
+        "./.agents/skills/jobbank-search",
+        "./.agents/skills/jobdanmark-search",
+        "./.agents/skills/jobindex-search",
+        "./.agents/skills/jobnet-search",
+        "./.agents/skills/linkedin-search",
+        "./.claude/skills/job-application-assistant",
+        "./.claude/skills/job-scraper",
+        "./.claude/skills/upskill"
+      ]
+    },
+    {
+      "name": "humanizer",
+      "source": {
+        "source": "github",
+        "repo": "blader/humanizer"
+      },
+      "description": "Agent skill that removes signs of AI-generated writing from text"
+    },
+    {
+      "name": "diagram-design",
+      "source": {
+        "source": "github",
+        "repo": "cathrynlavery/diagram-design"
+      },
+      "description": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop."
+    },
+    {
+      "name": "OmniRoute",
+      "source": {
+        "source": "github",
+        "repo": "cheaper-inference/OmniRoute"
+      },
+      "description": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by 900+ contributors",
+      "strict": false,
+      "skills": [
+        "./config/quality/skill-templates/green-prs",
+        "./config/quality/skill-templates/merge-batch",
+        "./config/quality/skill-templates/merge-prs",
+        "./config/quality/skill-templates/quality-scan",
+        "./config/quality/skill-templates/sweep-reds",
+        "./config/quality/skill-templates/validate-release-green",
+        "./skills/cli-a2a",
+        "./skills/cli-backup-sync",
+        "./skills/cli-batches",
+        "./skills/cli-chat",
+        "./skills/cli-compression",
+        "./skills/cli-contexts",
+        "./skills/cli-cost-usage",
+        "./skills/cli-eval",
+        "./skills/cli-health",
+        "./skills/cli-keys",
+        "./skills/cli-mcp",
+        "./skills/cli-models",
+        "./skills/cli-plugins-skills",
+        "./skills/cli-policy-audit",
+        "./skills/cli-providers",
+        "./skills/cli-resilience",
+        "./skills/cli-routing",
+        "./skills/cli-serve",
+        "./skills/cli-setup",
+        "./skills/cli-skill-collector",
+        "./skills/cli-tunnel",
+        "./skills/config-codex-cli",
+        "./skills/omni-agents-a2a",
+        "./skills/omni-api-keys",
+        "./skills/omni-auth",
+        "./skills/omni-budget",
+        "./skills/omni-cache",
+        "./skills/omni-cli-tools",
+        "./skills/omni-combos-routing",
+        "./skills/omni-compression",
+        "./skills/omni-context-rtk",
+        "./skills/omni-db-backups",
+        "./skills/omni-github-skills",
+        "./skills/omni-inference",
+        "./skills/omni-mcp",
+        "./skills/omni-models",
+        "./skills/omni-providers",
+        "./skills/omni-proxies",
+        "./skills/omni-resilience",
+        "./skills/omni-settings",
+        "./skills/omni-sync-cloud",
+        "./skills/omni-tunnels",
+        "./skills/omni-usage-logs",
+        "./skills/omni-version-manager",
+        "./skills/omni-webhooks",
+        "./skills/ponytail",
+        "./tests/fixtures/devin-bridge/e2e-workspace/.claude/skills/bridge-proof"
+      ]
+    },
+    {
+      "name": "security-audit-skill",
+      "source": {
+        "source": "github",
+        "repo": "cloudflare/security-audit-skill"
+      },
+      "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
+      "strict": false,
+      "skills": [
+        "./skills/security-audit"
+      ]
+    },
+    {
+      "name": "ponytail",
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      },
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote."
+    },
+    {
+      "name": "Understand-Anything",
+      "source": {
+        "source": "github",
+        "repo": "Egonex-AI/Understand-Anything"
+      },
+      "description": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more."
+    },
+    {
+      "name": "gstack",
+      "source": {
+        "source": "github",
+        "repo": "garrytan/gstack"
+      },
+      "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+      "strict": false,
+      "skills": [
+        "./",
+        "./autoplan",
+        "./benchmark",
+        "./benchmark-models",
+        "./browse",
+        "./browser-skills/hackernews-frontpage",
+        "./canary",
+        "./captain",
+        "./capy/skill/gstack",
+        "./careful",
+        "./codex",
+        "./context-restore",
+        "./context-save",
+        "./cso",
+        "./design-consultation",
+        "./design-html",
+        "./design-motion",
+        "./design-review",
+        "./design-shotgun",
+        "./deslop-shared-libs",
+        "./devex-review",
+        "./diagram",
+        "./document-generate",
+        "./document-release",
+        "./eval-plan",
+        "./freeze",
+        "./gstack-upgrade",
+        "./guard",
+        "./health",
+        "./investigate",
+        "./ios-clean",
+        "./ios-design-review",
+        "./ios-fix",
+        "./ios-qa",
+        "./ios-sync",
+        "./land-and-deploy",
+        "./landing-report",
+        "./learn",
+        "./make-pdf",
+        "./modernize",
+        "./office-hours",
+        "./open-gstack-browser",
+        "./openclaw/skills/gstack-openclaw-ceo-review",
+        "./openclaw/skills/gstack-openclaw-investigate",
+        "./openclaw/skills/gstack-openclaw-office-hours",
+        "./openclaw/skills/gstack-openclaw-retro",
+        "./pair-agent",
+        "./plan-ceo-review",
+        "./plan-design-review",
+        "./plan-devex-review",
+        "./plan-eng-review",
+        "./plan-tune",
+        "./qa",
+        "./qa-only",
+        "./retro",
+        "./review",
+        "./scrape",
+        "./setup-browser-cookies",
+        "./setup-deploy",
+        "./setup-gbrain",
+        "./ship",
+        "./skillify",
+        "./spec",
+        "./sync-gbrain",
+        "./test-audit",
+        "./test/fixtures/context-bill/tree-a/alpha",
+        "./test/fixtures/context-bill/tree-a/beta",
+        "./ubicloud",
+        "./unfreeze",
+        "./write-skill"
+      ]
+    },
+    {
+      "name": "hyperframes",
+      "source": {
+        "source": "github",
+        "repo": "heygen-com/hyperframes"
+      },
+      "description": "Write HTML. Render video. Built for agents."
+    },
+    {
+      "name": "founder-skill",
+      "source": {
+        "source": "github",
+        "repo": "Jakeschincariol/founder-skill"
+      },
+      "description": "Eleven free Claude skills that test a business before you launch it: a board trained on Hormozi, Thiel and Jobs, a marketing director, a CFO, and a consumer panel of 100 buyer agents. Free, MIT."
+    },
+    {
+      "name": "caveman",
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      },
+      "description": "🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman."
+    },
+    {
+      "name": "taste-skill",
+      "source": {
+        "source": "github",
+        "repo": "Leonxlnx/taste-skill"
+      },
+      "description": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages",
+      "strict": false,
+      "skills": [
+        "./skills/taste-skill"
+      ]
+    },
+    {
+      "name": "skills",
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      },
+      "description": "Skills for Real Engineers. Straight from my .agents directory."
+    },
+    {
+      "name": "rea",
+      "source": {
+        "source": "github",
+        "repo": "morluto/rea"
+      },
+      "description": "Reverse engineer anything with agents, from app behavior down to native binaries."
+    },
+    {
+      "name": "last30days-skill",
+      "source": {
+        "source": "github",
+        "repo": "mvanhorn/last30days-skill"
+      },
+      "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary"
+    },
+    {
+      "name": "ui-ux-pro-max-skill",
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      },
+      "description": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms."
+    },
+    {
+      "name": "hallmark",
+      "source": {
+        "source": "github",
+        "repo": "Nutlope/hallmark"
+      },
+      "description": "Anti-AI-slop design skill for Claude Code, Cursor, and Codex."
+    },
+    {
+      "name": "superpowers",
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers"
+      },
+      "description": "An agentic skills framework & software development methodology that works."
+    },
+    {
+      "name": "logo-generator-skill",
+      "source": {
+        "source": "github",
+        "repo": "op7418/logo-generator-skill"
+      },
+      "description": "logo-generator-skill",
+      "strict": false,
+      "skills": [
+        "./"
+      ]
+    },
+    {
+      "name": "codex-plugin-cc",
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      },
+      "description": "Use Codex from Claude Code to review code or delegate tasks.",
+      "strict": false,
+      "skills": [
+        "./plugins/codex/skills/codex-cli-runtime",
+        "./plugins/codex/skills/codex-result-handling",
+        "./plugins/codex/skills/gpt-5-4-prompting"
+      ]
+    },
+    {
+      "name": "impeccable",
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      },
+      "description": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships."
+    },
+    {
+      "name": "rtk",
+      "source": {
+        "source": "github",
+        "repo": "rtk-ai/rtk"
+      },
+      "description": "CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies",
+      "strict": false,
+      "skills": [
+        "./.claude/skills/code-simplifier",
+        "./.claude/skills/design-patterns",
+        "./.claude/skills/issue-triage",
+        "./.claude/skills/performance",
+        "./.claude/skills/pr-review",
+        "./.claude/skills/pr-triage",
+        "./.claude/skills/repo-recap",
+        "./.claude/skills/rtk-tdd",
+        "./.claude/skills/rtk-triage",
+        "./.claude/skills/security-guardian",
+        "./.claude/skills/ship",
+        "./.claude/skills/tdd-rust"
+      ]
+    },
+    {
+      "name": "linkedin-skills",
+      "source": {
+        "source": "github",
+        "repo": "sergebulaev/linkedin-skills"
+      },
+      "description": "Claude skills for LinkedIn. 12 Claude Code and Codex skills that write human-sounding LinkedIn posts, craft comments that get noticed, analyze your feed, and build a publishing cadence, all from your terminal. Content engineering by Creative Content Crafts. MIT."
+    },
+    {
+      "name": "vercel-labs-skills",
+      "source": {
+        "source": "github",
+        "repo": "vercel-labs/skills"
+      },
+      "description": "The open agent skills tool - npx skills",
+      "strict": false,
+      "skills": [
+        "./.automations/pr-labeling/skills/pr-labeling",
+        "./.automations/triage/skills/triage",
+        "./skills/find-skills"
+      ]
+    }
+  ]
+}

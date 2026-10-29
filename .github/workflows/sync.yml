@@ -1,0 +1,28 @@
+name: sync-marketplace
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    paths: [scripts/sync.mjs]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/sync.mjs
+        env:
+          # PAT com acesso de leitura ao perfil; só é obrigatório se a lista for privada.
+          STARS_TOKEN: ${{ secrets.STARS_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Commit se mudou
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .claude-plugin/marketplace.json
+          git diff --cached --quiet || (git commit -m 'chore: sync com a lista de stars' && git push)
