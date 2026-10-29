@@ -107,10 +107,12 @@ Depois do meu sim, faça um levantamento só de leitura (o que já está instala
    - sob-demanda, catalogo e fora: não instale; se já estiverem instalados, desligue (\`claude plugin disable\`).
    - descartado: se estiver instalado, desligue e me avise.
    - Campo "requires": só instale a dependência se o plugin for ficar ligado.
-4. Fora do fluxo: liste os plugins instalados que não estão no catalog.json (de qualquer marketplace) e as skills avulsas em ~/.claude/skills. Se houver algum, faça UMA pergunta com três opções:
+   - Se ~/.claude/${OWNER}/choices.json tiver uma decisão minha para esse id, ela vale mais que o catálogo: não mude, me avise da diferença e pergunte uma vez se quero seguir o catálogo.
+4. Fora do fluxo: liste os plugins ligados que não estão no catalog.json (de qualquer marketplace) e as skills avulsas em ~/.claude/skills. Leia ~/.claude/${OWNER}/choices.json, se existir: o que já tem decisão lá não entra na pergunta, só reaplique a decisão gravada. Se sobrar algum item sem decisão, faça UMA pergunta com três opções (se houver um "modo" gravado, ofereça-o como recomendado):
    a) desativar todos: plugins com \`claude plugin disable\`; skills avulsas movidas para ~/.claude/skills-off/ (reversível, nada é apagado);
    b) manter como estão;
    c) decidir por mim, um a um: proponha para cada item um nível do fluxo (core, complemento, sob-demanda ou desligar) com o motivo em uma linha, numa tabela, e só aplique depois que eu aprovar ou ajustar. No relatório, liste essas decisões como sugestões para o catalog.json.
+   Grave o resultado em ~/.claude/${OWNER}/choices.json, sem perder decisões anteriores: {"modo": "a" | "b" | "c", "items": {"plugin:<id>" ou "skill:<nome>": "ligado" ou "desligado"}}. É por esse arquivo que o verificador diário sabe o que você escolheu.
    O que não dá para desativar localmente (ex.: skills vindas da conta ou do app desktop), só liste.
 5. Ferramentas e hooks (type "hook" ou "ferramenta"):
    - core: rode "verify"; se falhar, instale com o comando do sistema e depois rode "setup".

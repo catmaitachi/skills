@@ -4,7 +4,7 @@
 // roda no máximo 1x por dia. `--force` ignora o limite. Só lê; nunca atualiza nada.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -84,6 +84,30 @@ checks.push(
     if (latest !== text(fileURLToPath(import.meta.url))) found.push('- verificador: `check-updates.mjs` tem versão nova');
   }),
 );
+
+// Fora do fluxo: respeita as escolhas gravadas pelo setup (choices.json) e só avisa sobre o que fugiu delas.
+// Sem choices.json o setup ainda não decidiu nada, então não há o que conferir.
+const choices = json(join(claude, OWNER, 'choices.json'), null);
+if (choices) {
+  checks.push(
+    raw('catalog.json').then((catalog) => {
+      const inFlow = new Set(JSON.parse(catalog).items.map((i) => `${i.name}@${MKT}`));
+      const skillsDir = join(claude, 'skills');
+      const skills = (() => { try { return readdirSync(skillsDir); } catch { return []; } })()
+        .filter((n) => existsSync(join(skillsDir, n, 'SKILL.md')));
+      const active = [
+        ...Object.keys(enabled).filter((id) => enabled[id] && !inFlow.has(id)).map((id) => `plugin:${id}`),
+        ...skills.map((n) => `skill:${n}`),
+      ];
+      const decided = choices.items ?? {};
+      const names = (keys) => keys.map((k) => `\`${k.split(':')[1]}\``).join(', ');
+      const back = active.filter((k) => decided[k] === 'desligado');
+      const fresh = active.filter((k) => !(k in decided));
+      if (back.length) found.push(`- fora do fluxo, reativado contra a escolha do usuário (ex.: por \`npx skills update\`): ${names(back)}. Pergunte se desativa de novo`);
+      if (fresh.length) found.push(`- fora do fluxo, sem decisão ainda: ${names(fresh)}. Faça a pergunta do passo 4 do setup só para esses itens`);
+    }),
+  );
+}
 
 const results = await Promise.allSettled(checks);
 if (results.every((r) => r.status === 'rejected')) process.exit(0); // sem rede: tenta na próxima sessão
