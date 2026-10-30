@@ -54,7 +54,7 @@
 
 <h2 align="center" style="text-align:center">📋 Aplicar este fluxo no meu computador</h2>
 
-<p align="center" style="text-align:center">Copie o prompt e cole no Claude Code. Ele instala e liga os plugins do fluxo, instala o RTK com o hook, grava as regras em <code>~/.claude/CLAUDE.md</code>, liga a verificação diária de atualizações (por script, sem gastar tokens) e confere tudo no final. Pede seu ok antes de mudar qualquer coisa e pode ser rodado de novo para atualizar.</p>
+<p align="center" style="text-align:center">Copie o prompt e cole no Claude Code. Ele instala e liga os plugins do fluxo, instala o RTK com o hook, grava as regras em <code>~/.claude/CLAUDE.md</code>, liga a verificação diária de atualizações (por script, sem gastar tokens), instala a trava que cobra as skills do fluxo e confere tudo no final. Pede seu ok antes de mudar qualquer coisa e pode ser rodado de novo para atualizar.</p>
 
 ```text
 Configure meu Claude Code com o fluxo de https://github.com/catmaitachi/skills.
@@ -63,7 +63,7 @@ Fontes: pegue o commit atual com `git ls-remote https://github.com/catmaitachi/s
 - catalog.json: o que instalar, ligar e desligar
 - claude-rules.md: o bloco de regras, pronto
 
-0. Aviso e consentimento, antes de qualquer outra ação: em poucas linhas e do jeito que achar mais claro para mim, explique o que é este setup (o fluxo de skills de catmaitachi/skills), o que ele vai mexer no meu computador (plugins do Claude Code, o binário do RTK com seu hook, ~/.claude/settings.json, ~/.claude/CLAUDE.md e um verificador diário de atualizações) e que haverá backup e nada será desinstalado. Pergunte se eu entendo e concordo. Se eu não concordar, pare sem mudar nada.
+0. Aviso e consentimento, antes de qualquer outra ação: em poucas linhas e do jeito que achar mais claro para mim, explique o que é este setup (o fluxo de skills de catmaitachi/skills), o que ele vai mexer no meu computador (plugins do Claude Code, o binário do RTK com seu hook, ~/.claude/settings.json, ~/.claude/CLAUDE.md, um verificador diário de atualizações e uma trava que bloqueia edição e commit quando a skill que o fluxo exige não foi chamada) e que haverá backup e nada será desinstalado. Pergunte se eu entendo e concordo. Se eu não concordar, pare sem mudar nada.
 
 Depois do meu sim, faça um levantamento só de leitura (o que já está instalado, ligado ou faltando). Se houver itens fora do fluxo (passo 4), faça a pergunta desse passo nesse momento. Só então, antes de alterar qualquer coisa, me mostre o plano concreto (o que vai instalar, ligar, desligar e gravar) e espere meu ok. Faça uma cópia .bak de cada arquivo antes de alterá-lo. Nunca desinstale nada: só ligue ou desligue. Depois de cada comando do CLI, confira se o estado ficou como esperado; se não, pare e me avise.
 
@@ -87,14 +87,16 @@ Depois do meu sim, faça um levantamento só de leitura (o que já está instala
    - sob-demanda: não instale; só liste no relatório.
 6. Regras: em ~/.claude/CLAUDE.md, troque o trecho entre <!-- luuspz:start --> e <!-- luuspz:end --> pelo conteúdo de claude-rules.md, sem mudar uma vírgula. Se o trecho não existir, adicione no fim. Não toque no resto do arquivo (ex.: @RTK.md).
 7. Atualizações: baixe scripts/check-updates.mjs (pelo mesmo commit das fontes) para ~/.claude/luuspz/check-updates.mjs (sobrescreva se existir). Em ~/.claude/settings.json, registre em hooks.SessionStart: {"hooks": [{"type": "command", "command": "node \"<caminho absoluto do script>\""}]}, sem duplicar se já houver um com esse script. Ele só lê e avisa; quem atualiza é você, com o meu ok.
-8. Verificação:
+8. Trava do fluxo: baixe scripts/fluxo-guard.mjs (pelo mesmo commit) para ~/.claude/luuspz/fluxo-guard.mjs (sobrescreva se existir). Em ~/.claude/settings.json, registre em hooks.PreToolUse: {"matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash", "hooks": [{"type": "command", "command": "node \"<caminho absoluto do script>\"", "timeout": 10}]}. Se já houver um hook com fluxo-guard.mjs, mesmo em outro caminho, atualize esse em vez de criar outro. Não mexa no hook do rtk.
+9. Verificação:
    - `node <caminho do script> --force` roda sem erro (listar atualizações é normal);
+   - a trava bloqueia: com um arquivo vazio em <vazio>, envie {"tool_name":"Edit","tool_input":{"file_path":"/x/index.html"},"transcript_path":"<vazio>"} para `node <caminho da trava>` e confira "deny" na saída;
    - `rtk --version` e `rtk gain` respondem (e não "command not found");
    - o hook reescreve: envie {"tool_name":"Bash","tool_input":{"command":"git status"}} para `rtk hook claude` e confira "rtk git status" na saída;
    - `claude plugin list` mostra ligados exatamente os plugins core e complemento;
    - o bloco de regras está no CLAUDE.md;
    - os itens fora do fluxo ficaram como escolhi no passo 4.
-9. Relatório: o que mudou, o que falhou e o que exige reiniciar o Claude Code.
+10. Relatório: o que mudou, o que falhou e o que exige reiniciar o Claude Code.
 ```
 
 <p align="center" style="text-align:center"><sub>Fonte das decisões: <a href="catalog.json"><code>catalog.json</code></a> · <a href="scripts/sync.mjs"><code>sync.mjs</code></a> lê a lista a cada 6h e <a href="scripts/build.mjs"><code>build.mjs</code></a> gera este README e o <a href="claude-rules.md"><code>claude-rules.md</code></a></sub></p>

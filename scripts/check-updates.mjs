@@ -90,6 +90,16 @@ checks.push(
   }),
 );
 
+// Trava do fluxo x versão publicada (só se o setup já a instalou).
+const guard = join(claude, OWNER, 'fluxo-guard.mjs');
+if (existsSync(guard)) {
+  checks.push(
+    raw('scripts/fluxo-guard.mjs').then((latest) => {
+      if (latest !== text(guard)) found.push('- trava: `fluxo-guard.mjs` tem versão nova');
+    }),
+  );
+}
+
 // Fora do fluxo: respeita as escolhas gravadas pelo setup (choices.json) e só avisa sobre o que fugiu delas.
 // Sem choices.json o setup ainda não decidiu nada, então não há o que conferir.
 const choices = json(join(claude, OWNER, 'choices.json'), null);
@@ -129,7 +139,7 @@ if (found.length) {
       'Pergunte ao usuário uma vez, em uma frase, se ele quer atualizar. Não atualize nada sem o ok dele.',
       `Como atualizar: plugins → \`claude plugin marketplace update ${MKT}\` e \`claude plugin update <id>\` (exige reiniciar); ` +
         'RTK → `winget upgrade rtk-ai.rtk` (Windows) ou `brew upgrade rtk`; ' +
-        `fluxo e verificador → rodar de novo o prompt de setup do README de https://github.com/${REPO}.`,
+        `fluxo, verificador e trava → rodar de novo o prompt de setup do README de https://github.com/${REPO}.`,
     ].join('\n'),
   );
 }

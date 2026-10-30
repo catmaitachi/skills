@@ -30,4 +30,6 @@ Gerado de https://github.com/catmaitachi/skills (catalog.json). Não edite aqui:
 **Não usar nem sugerir instalar:** `caveman`, `OmniRoute`, `graphify`, `hyperframes`, `rea`, `agent-skills`, `gstack`, `ai-job-search`, `linkedin-skills`.
 
 **Atualizações**: o hook de início de sessão roda `~/.claude/luuspz/check-updates.mjs` (no máximo 1x por dia, sem saída quando não há nada). Se ele listar atualizações, pergunte uma vez se quero atualizar e só atualize com o meu ok.
+
+**Trava**: o hook `~/.claude/luuspz/fluxo-guard.mjs` (PreToolUse) lê a sessão e nega a ação quando falta a skill: editar arquivo exige uma do `superpowers`; editar interface (html, css, tsx…) exige `impeccable`, ou `hallmark` + `ui-ux-pro-max`; `git commit` exige `superpowers:verification-before-completion` depois da última edição. Arquivos em `~/.claude` e subagentes ficam de fora. Se ela negar, chame a skill que a mensagem pede; não contorne.
 <!-- luuspz:end -->
