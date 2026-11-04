@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Verifica atualizações do fluxo: plugins ligados, binário do RTK, regras do CLAUDE.md e este próprio script.
+// Verifica atualizações do fluxo: plugins ligados, binário do RTK, regras (~/.claude/luuspz.md), a trava e este próprio script.
 // Feito para o hook SessionStart do Claude Code: silencioso quando não há nada (zero tokens),
 // roda no máximo 1x por dia. `--force` ignora o limite. Só lê; nunca atualiza nada.
 import { execFile } from 'node:child_process';
@@ -51,7 +51,8 @@ const location = json(join(claude, 'plugins', 'known_marketplaces.json'), {})[MK
 const manifest = json(join(location, '.claude-plugin', 'marketplace.json'), { plugins: [] });
 for (const [id, [record]] of Object.entries(installed)) {
   if (!id.endsWith(`@${MKT}`) || !enabled[id] || !record?.gitCommitSha) continue;
-  const repo = manifest.plugins.find((p) => p.name === id.split('@')[0])?.source?.repo;
+  const source = manifest.plugins.find((p) => p.name === id.split('@')[0])?.source;
+  const repo = source?.repo ?? source?.url; // github usa repo; git-subdir usa url
   if (!repo) continue;
   checks.push(
     remoteHead(repo).then((sha) => {
@@ -75,13 +76,15 @@ checks.push(
   })(),
 );
 
-// Regras do fluxo: bloco do CLAUDE.md x claude-rules.md publicado.
+// Regras do fluxo: ~/.claude/luuspz.md x luuspz.md publicado, e o CLAUDE.md importando o arquivo.
 checks.push(
-  raw('claude-rules.md').then((rules) => {
-    const block = text(join(claude, 'CLAUDE.md')).match(new RegExp(`<!-- ${OWNER}:start -->[\\s\\S]*?<!-- ${OWNER}:end -->`));
-    if (block?.[0].trim() !== rules.trim()) found.push('- fluxo: as regras publicadas mudaram e o bloco do CLAUDE.md está desatualizado');
+  raw(`${OWNER}.md`).then((rules) => {
+    if (text(join(claude, `${OWNER}.md`)).trim() !== rules.trim()) found.push(`- fluxo: as regras publicadas mudaram e ~/.claude/${OWNER}.md está desatualizado`);
   }),
 );
+const memory = text(join(claude, 'CLAUDE.md'));
+if (!new RegExp(`^@(~/\\.claude/)?${OWNER}\\.md\\s*$`, 'm').test(memory) || memory.includes(`<!-- ${OWNER}:start -->`))
+  found.push(`- fluxo: o CLAUDE.md ainda tem o bloco antigo ou não importa @${OWNER}.md`);
 
 // Este script x versão publicada.
 checks.push(

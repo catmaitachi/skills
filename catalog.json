@@ -57,14 +57,15 @@
       "setup": "headroom wrap claude"
     },
     {
-      "name": "security-audit-skill", "repo": "cloudflare/security-audit-skill", "level": "sob-demanda", "type": "plugin", "layer": "🧹 Código",
+      "name": "security-audit-skill", "repo": "cloudflare/security-audit-skill", "level": "complemento", "type": "plugin", "layer": "🧹 Código",
       "purpose": "Auditoria de segurança em várias fases",
-      "rule": "Antes de release ou em código sensível"
+      "rule": "Polimento: depois da verificação, em código sensível (auth, entrada do usuário, segredos, rede, dependências) ou antes de release/PR"
     },
     {
-      "name": "codex-plugin-cc", "repo": "openai/codex-plugin-cc", "level": "sob-demanda", "type": "plugin", "layer": "🧹 Código",
+      "name": "codex-plugin-cc", "repo": "openai/codex-plugin-cc", "level": "complemento", "type": "plugin", "layer": "🧹 Código",
       "purpose": "Segunda opinião e delegação via Codex",
-      "requires": "npm install -g @openai/codex e depois codex login"
+      "rule": "Opcional: só se o `codex` estiver instalado e logado. Revisa o plano antes de executar, e só quando eu escolher, porque gasta tokens da conta OpenAI",
+      "onlyIf": "codex --version"
     },
     {
       "name": "Understand-Anything", "repo": "Egonex-AI/Understand-Anything", "level": "sob-demanda", "type": "plugin", "layer": "🔭 Entender",
@@ -89,13 +90,14 @@
       "purpose": "O que se disse nos últimos 30 dias (Reddit, X, YouTube, HN)"
     },
     {
-      "name": "founder-skill", "repo": "Jakeschincariol/founder-skill", "level": "sob-demanda", "type": "plugin", "layer": "💼 Negócio",
-      "purpose": "11 skills para validar uma ideia de negócio"
+      "name": "founder-skill", "repo": "Jakeschincariol/founder-skill", "level": "complemento", "type": "plugin", "layer": "💼 Negócio",
+      "purpose": "11 skills para validar uma ideia de negócio",
+      "rule": "Valida e monta planos de produto/negócio no Aprofundar (`founder-board`, `founder-consumer`, `founder-cfo`; `founder-plan` consolida)"
     },
     {
-      "name": "vercel-labs-skills", "repo": "vercel-labs/skills", "level": "sob-demanda", "type": "plugin", "layer": "🧰 Ferramentas",
+      "name": "vercel-labs-skills", "repo": "vercel-labs/skills", "level": "complemento", "type": "plugin", "layer": "🧰 Ferramentas",
       "purpose": "Descobrir skills novas",
-      "rule": "Só o `find-skills`; `triage` e `pr-labeling` são do repo deles"
+      "rule": "Só o `find-skills`, no Aprofundar de tarefa complexa. Skill achada só entra se agregar valor real e passar o mínimo: ≥1K instalações no skills.sh ou repo com ≥100 estrelas, commit nos últimos 6 meses e SKILL.md lido inteiro, sem script que baixa código, pede credencial ou mexe fora do projeto. Instala só no projeto (sem `-g`) e com meu ok"
     },
     {
       "name": "caveman", "repo": "JuliusBrussee/caveman", "level": "catalogo", "type": "plugin", "layer": "💸 Tokens",

@@ -112,7 +112,7 @@
   {
     "repo": "openai/codex-plugin-cc",
     "description": "Use Codex from Claude Code to review code or delegate tasks.",
-    "kind": "skills soltas"
+    "kind": "plugin"
   },
   {
     "repo": "pbakaus/impeccable",
