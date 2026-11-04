@@ -234,16 +234,11 @@
     {
       "name": "codex-plugin-cc",
       "source": {
-        "source": "github",
-        "repo": "openai/codex-plugin-cc"
+        "source": "git-subdir",
+        "url": "openai/codex-plugin-cc",
+        "path": "plugins/codex"
       },
-      "description": "Use Codex from Claude Code to review code or delegate tasks.",
-      "strict": false,
-      "skills": [
-        "./plugins/codex/skills/codex-cli-runtime",
-        "./plugins/codex/skills/codex-result-handling",
-        "./plugins/codex/skills/gpt-5-4-prompting"
-      ]
+      "description": "Use Codex from Claude Code to review code or delegate tasks."
     },
     {
       "name": "impeccable",

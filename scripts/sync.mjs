@@ -61,6 +61,16 @@ async function toEntry(r, taken) {
   };
   if (paths.includes('.claude-plugin/plugin.json')) return { kind: 'plugin', entry };
 
+  // Repo que é um marketplace de um plugin só, numa subpasta (ex.: openai/codex-plugin-cc → plugins/codex):
+  // aponta para a subpasta, senão comandos e agentes do plugin ficam de fora.
+  if (paths.includes('.claude-plugin/marketplace.json')) {
+    const file = await api(`/repos/${r.nameWithOwner}/contents/.claude-plugin/marketplace.json?ref=${branch}`);
+    const sub = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8')).plugins ?? [];
+    const path = typeof sub[0]?.source === 'string' ? sub[0].source.replace(/^\.\//, '').replace(/\/$/, '') : '';
+    if (sub.length === 1 && path && paths.includes(`${path}/.claude-plugin/plugin.json`))
+      return { kind: 'plugin', entry: { ...entry, source: { source: 'git-subdir', url: r.nameWithOwner, path } } };
+  }
+
   const skills = paths
     .filter((p) => p === 'SKILL.md' || p.endsWith('/SKILL.md'))
     .map((p) => (p === 'SKILL.md' ? './' : `./${p.slice(0, -'/SKILL.md'.length)}`));

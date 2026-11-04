@@ -25,5 +25,5 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add .claude-plugin/marketplace.json stars.json README.md claude-rules.md
+          git add .claude-plugin/marketplace.json stars.json README.md luuspz.md
           git diff --cached --quiet || (git commit -m 'chore: sync com a lista de stars' && git push)
