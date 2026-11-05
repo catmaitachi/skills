@@ -267,6 +267,8 @@
       "skills": [
         "./.automations/pr-labeling/skills/pr-labeling",
         "./.automations/triage/skills/triage",
+        "./.vc/automations/workflows/pr-labeling/skills/pr-labeling",
+        "./.vc/automations/workflows/triage/skills/triage",
         "./skills/find-skills"
       ]
     }
