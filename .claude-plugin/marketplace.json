@@ -36,6 +36,14 @@
       "description": "Agent skill that removes signs of AI-generated writing from text"
     },
     {
+      "name": "career-ops",
+      "source": {
+        "source": "github",
+        "repo": "career-ops-hq/career-ops"
+      },
+      "description": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume and cover letter, get interview prep and an application tracker. It helps you fill in each application; you press Submit. Runs locally in Codex, OpenCode and other AI CLIs, or as a Claude Code plugin."
+    },
+    {
       "name": "diagram-design",
       "source": {
         "source": "github",
