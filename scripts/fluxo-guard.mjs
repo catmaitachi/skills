@@ -16,7 +16,10 @@ import { join } from 'node:path';
 const OWNER = 'luuspz';
 const EDICAO = new Set(['Write', 'Edit', 'NotebookEdit', 'MultiEdit']);
 const UI = /\.(html?|css|scss|sass|less|tsx|jsx|vue|svelte|astro)$/i;
-const CLAUDE_DIR = homedir() + '/.claude/';
+// No Windows o caminho chega com \ ou /, e maiúsculas não importam: compara tudo normalizado.
+const normal = (p) => { const s = String(p).replaceAll('\\', '/'); return process.platform === 'win32' ? s.toLowerCase() : s; };
+const CLAUDE_DIR = normal(join(homedir(), '.claude')) + '/';
+const naClaude = (p) => normal(p).startsWith(CLAUDE_DIR);
 const COMANDO = /<command-name>\/?([^<\s]+)<\/command-name>/g;
 
 const sair = (saida) => {
@@ -52,7 +55,7 @@ function lerSessao(caminho) {
         for (const m of b.text.matchAll(COMANDO)) skills.push({ nome: m[1], pos: pos++ });
       if (b.type !== 'tool_use') continue;
       if (b.name === 'Skill' && b.input?.skill) skills.push({ nome: b.input.skill, pos: pos++ });
-      else if (EDICAO.has(b.name) && !String(b.input?.file_path || b.input?.notebook_path || '').startsWith(CLAUDE_DIR)) ultimaEdicao = pos++;
+      else if (EDICAO.has(b.name) && !naClaude(b.input?.file_path || b.input?.notebook_path || '')) ultimaEdicao = pos++;
     }
   }
   return { skills, ultimaEdicao, inicioTurno };
@@ -99,7 +102,7 @@ if (agent_id) sair(); // subagente: o fluxo é cobrado da sessão principal
 const arquivo = dados.file_path || dados.notebook_path || '';
 const ehCommit = ferramenta === 'Bash' && /\bgit\s+commit\b/.test(dados.command || '');
 if (!(EDICAO.has(ferramenta) || ehCommit)) sair();
-if (arquivo.startsWith(CLAUDE_DIR)) sair();
+if (naClaude(arquivo)) sair();
 
 const sessao = lerSessao(caminho);
 if (!sessao) sair({ systemMessage: 'fluxo-guard: transcript ilegível, trava não aplicada.' });
