@@ -192,11 +192,27 @@ Depois do meu sim, faça um levantamento só de leitura (o que já está instala
    - os itens fora do fluxo ficaram como escolhi no passo 4.
 10. Relatório: o que mudou, o que falhou e o que exige reiniciar o Claude Code.`;
 
+// --- Cabeçalho: números do catálogo e status do sync, na cor do mascote (assets/mascote.gif) ---
+const MASCOTE = 'd87050';
+const stat = (label, value) =>
+  `<img alt="${label}: ${value}" src="https://img.shields.io/badge/${encodeURIComponent(label)}-${value}-${MASCOTE}?style=flat-square&labelColor=555">`;
+const header = [
+  stat('core', pick('core').length),
+  stat('complemento', pick('complemento').length),
+  stat('sob demanda', pick('sob-demanda').length),
+  stat('catálogo', catalog.items.length - out.length),
+  `<a href="https://github.com/${REPO}/actions/workflows/sync.yml"><img alt="sync" src="https://img.shields.io/github/actions/workflow/status/${REPO}/sync.yml?label=sync&style=flat-square&labelColor=555"></a>`,
+].join(' ');
+
 const readme = `<!-- Gerado por scripts/build.mjs a partir de catalog.json e stars.json. Não edite à mão: mude o catalog.json. -->
 
-<h1 ${A}>🧰 skills</h1>
+<p ${A}><img src="assets/mascote.gif" width="120" alt="mascote laranja em pixel art"></p>
 
-<p ${A}><b>Meu marketplace de plugins para o Claude Code, classificado pelo que eu realmente uso.</b></p>
+<h1 ${A}>skills</h1>
+
+<p ${A}><b>Meu fluxo de skills para o Claude Code, classificado pelo que eu realmente uso.</b></p>
+
+<p ${A}>${header}</p>
 
 <p ${A}><code>/plugin marketplace add ${REPO}</code></p>
 
