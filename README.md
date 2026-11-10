@@ -1,8 +1,12 @@
 <!-- Gerado por scripts/build.mjs a partir de catalog.json e stars.json. Não edite à mão: mude o catalog.json. -->
 
-<h1 align="center" style="text-align:center">🧰 skills</h1>
+<p align="center" style="text-align:center"><img src="assets/mascote.gif" width="120" alt="mascote laranja em pixel art"></p>
 
-<p align="center" style="text-align:center"><b>Meu marketplace de plugins para o Claude Code, classificado pelo que eu realmente uso.</b></p>
+<h1 align="center" style="text-align:center">skills</h1>
+
+<p align="center" style="text-align:center"><b>Meu fluxo de skills para o Claude Code, classificado pelo que eu realmente uso.</b></p>
+
+<p align="center" style="text-align:center"><img alt="core: 7" src="https://img.shields.io/badge/core-7-d87050?style=flat-square&labelColor=555"> <img alt="complemento: 5" src="https://img.shields.io/badge/complemento-5-d87050?style=flat-square&labelColor=555"> <img alt="sob demanda: 6" src="https://img.shields.io/badge/sob%20demanda-6-d87050?style=flat-square&labelColor=555"> <img alt="catálogo: 25" src="https://img.shields.io/badge/cat%C3%A1logo-25-d87050?style=flat-square&labelColor=555"> <a href="https://github.com/catmaitachi/skills/actions/workflows/sync.yml"><img alt="sync" src="https://img.shields.io/github/actions/workflow/status/catmaitachi/skills/sync.yml?label=sync&style=flat-square&labelColor=555"></a></p>
 
 <p align="center" style="text-align:center"><code>/plugin marketplace add catmaitachi/skills</code></p>
 
