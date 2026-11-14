@@ -265,6 +265,14 @@
       "description": "Claude skills for LinkedIn. 12 Claude Code and Codex skills that write human-sounding LinkedIn posts, craft comments that get noticed, analyze your feed, and build a publishing cadence, all from your terminal. Content engineering by Creative Content Crafts. MIT."
     },
     {
+      "name": "raea-skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "shinyobjectz/raea-skills",
+        "path": "skills"
+      }
+    },
+    {
       "name": "vercel-labs-skills",
       "source": {
         "source": "github",

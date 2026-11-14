@@ -135,6 +135,11 @@
     "kind": "plugin"
   },
   {
+    "repo": "shinyobjectz/raea-skills",
+    "description": "",
+    "kind": "plugin"
+  },
+  {
     "repo": "vercel-labs/skills",
     "description": "The open agent skills tool - npx skills",
     "kind": "skills soltas"
