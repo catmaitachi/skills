@@ -16,12 +16,6 @@
       "description": "The job search that runs on your machine. AI job application framework built on Claude Code: evaluate postings, tailor CVs, write cover letters, prep interviews. Fork it and own it.",
       "strict": false,
       "skills": [
-        "./.agents/skills/freehire-search",
-        "./.agents/skills/jobbank-search",
-        "./.agents/skills/jobdanmark-search",
-        "./.agents/skills/jobindex-search",
-        "./.agents/skills/jobnet-search",
-        "./.agents/skills/linkedin-search",
         "./.claude/skills/job-application-assistant",
         "./.claude/skills/job-scraper",
         "./.claude/skills/upskill"
