@@ -65,13 +65,18 @@
     "kind": "plugin"
   },
   {
+    "repo": "HKUDS/CLI-Anything",
+    "description": "\"CLI-Anything: Making ALL Software Agent-Native\" -- CLI-Hub: https://clianything.cc/",
+    "kind": "plugin"
+  },
+  {
     "repo": "Jakeschincariol/founder-skill",
     "description": "Eleven free Claude skills that test a business before you launch it: a board trained on Hormozi, Thiel and Jobs, a marketing director, a CFO, and a consumer panel of 100 buyer agents. Free, MIT.",
     "kind": "plugin"
   },
   {
     "repo": "JuliusBrussee/caveman",
-    "description": "🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman.",
+    "description": "why use many token when few token do trick. Skill + local proxy for coding agents: shorter answers, smaller tool output, every original recoverable.",
     "kind": "plugin"
   },
   {
